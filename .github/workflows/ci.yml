@@ -79,7 +79,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm --filter @ai-sdlc/test-utils exec playwright install --with-deps chromium
       - run: pnpm --filter @ai-sdlc/admin-portal run build
       - name: Start Admin Portal preview
         run: pnpm --filter @ai-sdlc/admin-portal preview --port 3000 &
@@ -106,7 +106,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm --filter @ai-sdlc/test-utils exec playwright install --with-deps chromium
       - run: pnpm --filter @ai-sdlc/member-portal run build
       - name: Start Member Portal preview
         run: pnpm --filter @ai-sdlc/member-portal preview --port 3001 &

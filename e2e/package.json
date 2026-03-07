@@ -3,9 +3,9 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "test:api": "cucumber-js --profile api --config cucumber.config.ts",
-        "test:e2e:admin": "cucumber-js --profile e2e:admin --config cucumber.config.ts",
-        "test:e2e:member": "cucumber-js --profile e2e:member --config cucumber.config.ts"
+        "test:api": "cucumber-js --profile api --config cucumber.config.js",
+        "test:e2e:admin": "cucumber-js --profile e2e:admin --config cucumber.config.js",
+        "test:e2e:member": "cucumber-js --profile e2e:member --config cucumber.config.js"
     },
     "dependencies": {
         "@ai-sdlc/test-utils": "workspace:*"

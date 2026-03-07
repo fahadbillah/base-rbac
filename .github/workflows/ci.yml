@@ -53,7 +53,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @ai-sdlc/api run db:migrate
-      - run: pnpm --filter @ai-sdlc/api run build
+      - run: pnpm turbo run build --filter @ai-sdlc/api
       - name: Start API
         run: pnpm --filter @ai-sdlc/api start &
       - run: |
@@ -80,7 +80,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @ai-sdlc/test-utils exec playwright install --with-deps chromium
-      - run: pnpm --filter @ai-sdlc/admin-portal run build
+      - run: pnpm turbo run build --filter @ai-sdlc/admin-portal
       - name: Start Admin Portal preview
         run: pnpm --filter @ai-sdlc/admin-portal preview --port 3000 &
       - run: npx wait-on http://localhost:3000 --timeout 30000
@@ -107,7 +107,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @ai-sdlc/test-utils exec playwright install --with-deps chromium
-      - run: pnpm --filter @ai-sdlc/member-portal run build
+      - run: pnpm turbo run build --filter @ai-sdlc/member-portal
       - name: Start Member Portal preview
         run: pnpm --filter @ai-sdlc/member-portal preview --port 3001 &
       - run: npx wait-on http://localhost:3001 --timeout 30000

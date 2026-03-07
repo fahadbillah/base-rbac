@@ -59,7 +59,7 @@ jobs:
       - run: |
           npx wait-on http://localhost:4000/health --timeout 30000
       - run: |
-          npx cucumber-js --profile api --config e2e/cucumber.config.ts
+          npx cucumber-js --profile api --config e2e/cucumber.config.js
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -86,7 +86,7 @@ jobs:
       - run: npx wait-on http://localhost:3000 --timeout 30000
       - run: |
           ADMIN_URL=http://localhost:3000 \
-          npx cucumber-js --profile e2e:admin --config e2e/cucumber.config.ts
+          npx cucumber-js --profile e2e:admin --config e2e/cucumber.config.js
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -113,7 +113,7 @@ jobs:
       - run: npx wait-on http://localhost:3001 --timeout 30000
       - run: |
           MEMBER_URL=http://localhost:3001 \
-          npx cucumber-js --profile e2e:member --config e2e/cucumber.config.ts
+          npx cucumber-js --profile e2e:member --config e2e/cucumber.config.js
       - uses: actions/upload-artifact@v4
         if: always()
         with:

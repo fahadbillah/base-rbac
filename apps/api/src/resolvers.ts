@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-import type { Resolvers } from "../../../packages/graphql-schema/src/generated/types";
+import type { Resolvers } from "@ai-sdlc/graphql-schema";
 
 const prisma = new PrismaClient();
 

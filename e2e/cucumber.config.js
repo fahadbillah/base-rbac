@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const common = {
-    requireModule: ["tsx/esm"],
+    requireModule: ["tsx"],
     format: [
         "progress-bar",
         "json:cucumber-report/results.json",
@@ -14,8 +12,10 @@ const common = {
         apiUrl: process.env.API_URL ?? "http://localhost:4000",
     },
 };
+
 const config = {
     default: common,
+
     // ─── API Profile ──────────────────────────────────────────────
     api: {
         ...common,
@@ -27,6 +27,7 @@ const config = {
         ],
         tags: "@api",
     },
+
     // ─── Admin E2E Profile ────────────────────────────────────────
     "e2e:admin": {
         ...common,
@@ -39,6 +40,7 @@ const config = {
         ],
         tags: "@e2e and @admin",
     },
+
     // ─── Member E2E Profile ───────────────────────────────────────
     "e2e:member": {
         ...common,
@@ -52,5 +54,5 @@ const config = {
         tags: "@e2e and @member",
     },
 };
-exports.default = config;
-//# sourceMappingURL=cucumber.config.js.map
+
+module.exports = config;

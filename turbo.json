@@ -1,0 +1,55 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "globalDependencies": [
+        "**/.env.*local"
+    ],
+    "pipeline": {
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**",
+                ".next/**",
+                "!.next/cache/**"
+            ]
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "lint": {
+            "outputs": []
+        },
+        "typecheck": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": []
+        },
+        "test:api": {
+            "dependsOn": [
+                "build"
+            ],
+            "outputs": [
+                "coverage/**"
+            ]
+        },
+        "test:e2e:admin": {
+            "dependsOn": [
+                "build"
+            ],
+            "outputs": [
+                "playwright-report/**"
+            ]
+        },
+        "test:e2e:member": {
+            "dependsOn": [
+                "build"
+            ],
+            "outputs": [
+                "playwright-report/**"
+            ]
+        }
+    }
+}

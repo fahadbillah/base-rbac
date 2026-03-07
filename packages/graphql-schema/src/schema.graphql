@@ -1,0 +1,30 @@
+# GraphQL Schema for AI-SDLC
+# This is the shared SDL used by the API and consumed by frontend codegen
+
+type Query {
+  me: User
+  users: [User!]!
+}
+
+type Mutation {
+  # Auth mutations are handled by Auth0; this is for profile/app-level mutations
+  updateProfile(input: UpdateProfileInput!): User!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String
+  role: UserRole!
+  createdAt: String!
+  updatedAt: String!
+}
+
+enum UserRole {
+  ADMIN
+  MEMBER
+}
+
+input UpdateProfileInput {
+  name: String
+}

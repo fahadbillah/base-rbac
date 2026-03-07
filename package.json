@@ -1,0 +1,31 @@
+{
+  "name": "ai-sdlc",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test:api": "turbo run test:api",
+    "test:e2e:admin": "turbo run test:e2e:admin",
+    "test:e2e:member": "turbo run test:e2e:member",
+    "test": "turbo run test:api test:e2e:admin test:e2e:member",
+    "spec:dry-run": "cucumber-js --dry-run --config e2e/cucumber.config.js",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.3",
+    "@commitlint/config-conventional": "^20.4.3",
+    "@cucumber/cucumber": "^11.2.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.4.2",
+    "turbo": "^2.4.4",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

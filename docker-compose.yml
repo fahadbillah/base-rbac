@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+  # ── Database ─────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ai_sdlc_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── API ──────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+      target: builder # use builder for hot-reload in dev
+    command: pnpm run dev
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/ai_sdlc_dev
+      AUTH0_DOMAIN: ${AUTH0_DOMAIN}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:3001
+    volumes:
+      - ./apps/api/src:/repo/apps/api/src # hot reload
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # ── Admin Portal ─────────────────────────────────────────────
+  admin-portal:
+    build:
+      context: .
+      dockerfile: docker/admin-portal/Dockerfile
+      target: builder
+    command: pnpm run dev
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_AUTH0_DOMAIN: ${AUTH0_DOMAIN}
+      VITE_AUTH0_CLIENT_ID: ${ADMIN_AUTH0_CLIENT_ID}
+      VITE_AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+    volumes:
+      - ./apps/admin-portal/src:/repo/apps/admin-portal/src
+
+  # ── Member Portal ─────────────────────────────────────────────
+  member-portal:
+    build:
+      context: .
+      dockerfile: docker/member-portal/Dockerfile
+      target: builder
+    command: pnpm run dev
+    ports:
+      - "3001:3001"
+    environment:
+      VITE_AUTH0_DOMAIN: ${AUTH0_DOMAIN}
+      VITE_AUTH0_CLIENT_ID: ${MEMBER_AUTH0_CLIENT_ID}
+      VITE_AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+    volumes:
+      - ./apps/member-portal/src:/repo/apps/member-portal/src
+
+volumes:
+  postgres_data:

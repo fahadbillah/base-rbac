@@ -1,0 +1,9 @@
+[allowlist]
+description = "allow dummy test keys"
+regexes = ['''fake_.*''']
+paths = ['''ideas/.*''', '''pnpm-lock\.yaml''', '''\.github/workflows/.*''', '''docker-compose\.yaml''', '''docker-compose\.yml''']
+
+[[rules]]
+id = "generic-secret"
+description = "Generic Secret"
+regex = '''(?i)(secret|password|token|key)\s*[:=]\s*[^\s]+'''

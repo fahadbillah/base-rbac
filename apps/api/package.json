@@ -1,0 +1,35 @@
+{
+    "name": "@ai-sdlc/api",
+    "version": "0.0.1",
+    "private": true,
+    "main": "dist/index.js",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "lint": "eslint src/",
+        "typecheck": "tsc --noEmit",
+        "db:migrate": "prisma migrate dev",
+        "db:generate": "prisma generate",
+        "db:studio": "prisma studio"
+    },
+    "dependencies": {
+        "@ai-sdlc/graphql-schema": "workspace:*",
+        "@apollo/server": "^4.11.3",
+        "express-oauth2-jwt-bearer": "^1.6.0",
+        "@prisma/client": "^6.4.1",
+        "cors": "^2.8.5",
+        "express": "^4.21.2",
+        "graphql": "^16.10.0",
+        "helmet": "^8.0.0"
+    },
+    "devDependencies": {
+        "@ai-sdlc/config": "workspace:*",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.13.5",
+        "prisma": "^6.4.1",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.3"
+    }
+}

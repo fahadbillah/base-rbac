@@ -1,5 +1,5 @@
 # ── Stage 1: deps ─────────────────────────────────────────────
-FROM node:20-alpine AS deps
+FROM node:24-alpine AS deps
 WORKDIR /repo
 RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
@@ -16,7 +16,7 @@ WORKDIR /repo/apps/api
 RUN pnpm run build
 
 # ── Stage 3: production ───────────────────────────────────────
-FROM node:20-alpine AS prod
+FROM node:24-alpine AS prod
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /repo/apps/api/dist ./dist

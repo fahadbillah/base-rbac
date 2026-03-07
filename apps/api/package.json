@@ -4,9 +4,9 @@
     "private": true,
     "main": "dist/index.js",
     "scripts": {
-        "dev": "tsx watch src/index.ts",
+        "dev": "tsx watch src/server.ts",
         "build": "tsc",
-        "start": "node dist/index.js",
+        "start": "node dist/server.js",
         "lint": "eslint src/",
         "typecheck": "tsc --noEmit",
         "db:migrate": "prisma migrate dev",
@@ -21,6 +21,8 @@
         "cors": "^2.8.5",
         "express": "^4.21.2",
         "express-oauth2-jwt-bearer": "^1.6.0",
+        "firebase-admin": "^13.7.0",
+        "firebase-functions": "^7.1.0",
         "graphql": "^16.10.0",
         "helmet": "^8.0.0"
     },

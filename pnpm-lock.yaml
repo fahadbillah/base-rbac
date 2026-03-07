@@ -204,6 +204,9 @@ importers:
         specifier: workspace:*
         version: link:../packages/test-utils
     devDependencies:
+      '@ai-sdlc/config':
+        specifier: workspace:*
+        version: link:../packages/config
       '@cucumber/cucumber':
         specifier: ^11.2.0
         version: 11.3.0

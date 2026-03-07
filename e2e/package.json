@@ -11,6 +11,7 @@
         "@ai-sdlc/test-utils": "workspace:*"
     },
     "devDependencies": {
+        "@ai-sdlc/config": "workspace:*",
         "@cucumber/cucumber": "^11.2.0",
         "@playwright/test": "^1.50.1",
         "@types/node": "^22.13.5",

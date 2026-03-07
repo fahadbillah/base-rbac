@@ -21,6 +21,7 @@ const config = {
         ...common,
         paths: ["specs/api/**/*.feature"],
         require: [
+            "packages/test-utils/src/world.ts",
             "packages/test-utils/src/hooks.ts",
             "e2e/api/steps/**/*.ts",
             "e2e/api/support/**/*.ts",

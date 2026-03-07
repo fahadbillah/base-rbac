@@ -1,13 +1,11 @@
-// Cucumber config — CommonJS compatible, loaded by cucumber-js
-// URLs are passed in via worldParameters in turbo.json or env vars
-
-/** @type {import('@cucumber/cucumber').IConfiguration} */
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const common = {
-    requireModule: ["tsx/cjs"],
+    requireModule: ["tsx/esm"],
     format: [
         "progress-bar",
-        `json:cucumber-report/results.json`,
-        `html:cucumber-report/report.html`,
+        "json:cucumber-report/results.json",
+        "html:cucumber-report/report.html",
     ],
     formatOptions: { snippetInterface: "async-await" },
     worldParameters: {
@@ -16,10 +14,8 @@ const common = {
         apiUrl: process.env.API_URL ?? "http://localhost:4000",
     },
 };
-
-module.exports = {
+const config = {
     default: common,
-
     // ─── API Profile ──────────────────────────────────────────────
     api: {
         ...common,
@@ -31,7 +27,6 @@ module.exports = {
         ],
         tags: "@api",
     },
-
     // ─── Admin E2E Profile ────────────────────────────────────────
     "e2e:admin": {
         ...common,
@@ -44,7 +39,6 @@ module.exports = {
         ],
         tags: "@e2e and @admin",
     },
-
     // ─── Member E2E Profile ───────────────────────────────────────
     "e2e:member": {
         ...common,
@@ -58,3 +52,5 @@ module.exports = {
         tags: "@e2e and @member",
     },
 };
+exports.default = config;
+//# sourceMappingURL=cucumber.config.js.map

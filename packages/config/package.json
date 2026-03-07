@@ -5,6 +5,6 @@
     "exports": {
         "./tsconfig/base": "./tsconfig/base.json",
         "./tsconfig/react": "./tsconfig/react.json",
-        "./eslint/base": "./eslint/base.js"
+        "./eslint/base": "./eslint/base.mjs"
     }
 }

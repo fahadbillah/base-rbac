@@ -15,7 +15,7 @@ const common: Partial<IConfiguration> = {
     },
 };
 
-const config = {
+const config: Record<string, Partial<IConfiguration>> = {
     default: common,
 
     // ─── API Profile ──────────────────────────────────────────────

@@ -28,6 +28,15 @@ export class CustomWorld extends World implements AppWorld {
     constructor(options: IWorldOptions) {
         super(options);
     }
+
+    get apiUrl(): string {
+        return this.parameters.apiUrl;
+    }
+
+    get baseUrl(): string {
+        // Default to admin portal for general e2e
+        return this.parameters.adminPortalUrl;
+    }
 }
 
 setWorldConstructor(CustomWorld);

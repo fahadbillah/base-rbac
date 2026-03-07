@@ -1,12 +1,14 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import { auth } from "express-oauth2-jwt-bearer";
 import cors from "cors";
 import express from "express";
+import { auth } from "express-oauth2-jwt-bearer";
 import helmet from "helmet";
 
+import "@ai-sdlc/graphql-schema";
+import { schema } from "@ai-sdlc/graphql-schema/schema";
+
 import { resolvers } from "./resolvers";
-import { schema } from "../../packages/graphql-schema/src/schema";
 
 const PORT = process.env.PORT ?? 4000;
 
@@ -35,9 +37,9 @@ async function bootstrap() {
         checkJwt,
         expressMiddleware(server, {
             context: async ({ req }) => ({
-                user: (req as Express.Request).auth,
+                user: (req as any).auth,
             }),
-        })
+        }) as any // Bypass Express definition mismatch
     );
 
     app.listen(PORT, () => {

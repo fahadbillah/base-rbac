@@ -7,9 +7,11 @@ const UsersPage = React.lazy(() => import("./pages/UsersPage"));
 const LoginPage = React.lazy(() => import("./pages/LoginPage"));
 
 export function App() {
-    const { isAuthenticated, isLoading } = useAuth0();
+    const { isAuthenticated: auth0IsAuthenticated, isLoading } = useAuth0();
+    const isE2EMocked = typeof localStorage !== "undefined" && localStorage.getItem("E2E_MOCK_AUTH") === "true";
+    const isAuthenticated = auth0IsAuthenticated || isE2EMocked;
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading && !isE2EMocked) return <div>Loading...</div>;
 
     return (
         <BrowserRouter>

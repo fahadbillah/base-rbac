@@ -1,7 +1,9 @@
-import { Before, After, BeforeAll, AfterAll, Status } from "@cucumber/cucumber";
+import { Before, After, BeforeAll, AfterAll, Status, setDefaultTimeout } from "@cucumber/cucumber";
 import { chromium } from "@playwright/test";
 
 import { CustomWorld } from "./world";
+
+setDefaultTimeout(15000); // 15 seconds
 
 // Launch browser once for the entire test run
 BeforeAll(async function () {

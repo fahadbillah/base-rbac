@@ -15,8 +15,11 @@ Given(
 );
 
 Given("I am logged in as an admin", async function (this: CustomWorld) {
-    // TODO: use Auth0 test tenant + programmatic login
     await this.page.goto(this.worldParameters.adminPortalUrl);
+    await this.page.evaluate(() => {
+        localStorage.setItem("E2E_MOCK_AUTH", "true");
+    });
+    await this.page.reload();
 });
 
 When(

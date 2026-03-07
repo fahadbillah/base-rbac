@@ -14,11 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run lint typecheck
@@ -49,21 +47,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @ai-sdlc/api run db:migrate
-      - run: pnpm --filter @ai-sdlc/api run build
+      - run: pnpm turbo run build --filter @ai-sdlc/api
       - name: Start API
         run: pnpm --filter @ai-sdlc/api start &
       - run: |
           npx wait-on http://localhost:4000/health --timeout 30000
       - run: |
-          npx cucumber-js --profile api --config e2e/cucumber.config.ts
+          npx cucumber-js --profile api --config e2e/cucumber.config.js
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -78,21 +74,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm --filter @ai-sdlc/admin-portal run build
+      - run: pnpm --filter @ai-sdlc/test-utils exec playwright install --with-deps chromium
+      - run: pnpm turbo run build --filter @ai-sdlc/admin-portal
       - name: Start Admin Portal preview
         run: pnpm --filter @ai-sdlc/admin-portal preview --port 3000 &
       - run: npx wait-on http://localhost:3000 --timeout 30000
       - run: |
           ADMIN_URL=http://localhost:3000 \
-          npx cucumber-js --profile e2e:admin --config e2e/cucumber.config.ts
+          npx cucumber-js --profile e2e:admin --config e2e/cucumber.config.js
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -107,21 +101,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm --filter @ai-sdlc/member-portal run build
+      - run: pnpm --filter @ai-sdlc/test-utils exec playwright install --with-deps chromium
+      - run: pnpm turbo run build --filter @ai-sdlc/member-portal
       - name: Start Member Portal preview
         run: pnpm --filter @ai-sdlc/member-portal preview --port 3001 &
       - run: npx wait-on http://localhost:3001 --timeout 30000
       - run: |
           MEMBER_URL=http://localhost:3001 \
-          npx cucumber-js --profile e2e:member --config e2e/cucumber.config.ts
+          npx cucumber-js --profile e2e:member --config e2e/cucumber.config.js
       - uses: actions/upload-artifact@v4
         if: always()
         with:

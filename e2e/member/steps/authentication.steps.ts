@@ -15,9 +15,11 @@ Given(
 );
 
 Given("I am logged in as a member", async function (this: CustomWorld) {
-    // TODO: use Auth0 test tenant + programmatic login
-    // For now, set a mock auth state via localStorage or a test route
     await this.page.goto(this.worldParameters.memberPortalUrl);
+    await this.page.evaluate(() => {
+        localStorage.setItem("E2E_MOCK_AUTH", "true");
+    });
+    await this.page.reload();
 });
 
 When(

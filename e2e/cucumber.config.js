@@ -1,13 +1,9 @@
-// Cucumber config — CommonJS compatible, loaded by cucumber-js
-// URLs are passed in via worldParameters in turbo.json or env vars
-
-/** @type {import('@cucumber/cucumber').IConfiguration} */
 const common = {
-    requireModule: ["tsx/cjs"],
+    requireModule: ["tsx"],
     format: [
         "progress-bar",
-        `json:cucumber-report/results.json`,
-        `html:cucumber-report/report.html`,
+        "json:cucumber-report/results.json",
+        "html:cucumber-report/report.html",
     ],
     formatOptions: { snippetInterface: "async-await" },
     worldParameters: {
@@ -17,7 +13,7 @@ const common = {
     },
 };
 
-module.exports = {
+const config = {
     default: common,
 
     // ─── API Profile ──────────────────────────────────────────────
@@ -25,6 +21,7 @@ module.exports = {
         ...common,
         paths: ["specs/api/**/*.feature"],
         require: [
+            "packages/test-utils/src/world.ts",
             "packages/test-utils/src/hooks.ts",
             "e2e/api/steps/**/*.ts",
             "e2e/api/support/**/*.ts",
@@ -58,3 +55,5 @@ module.exports = {
         tags: "@e2e and @member",
     },
 };
+
+module.exports = config;

@@ -4,7 +4,7 @@ const config: CodegenConfig = {
     schema: "./src/schema.graphql",
     generates: {
         "./src/generated/types.ts": {
-            plugins: ["typescript"],
+            plugins: ["typescript", "typescript-resolvers"],
             config: {
                 strictScalars: true,
                 enumsAsTypes: true,

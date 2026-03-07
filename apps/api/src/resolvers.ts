@@ -1,5 +1,6 @@
-import type { Resolvers } from "@ai-sdlc/graphql-schema/src/generated/types";
 import { PrismaClient } from "@prisma/client";
+
+import type { Resolvers } from "@ai-sdlc/graphql-schema";
 
 const prisma = new PrismaClient();
 
@@ -11,20 +12,34 @@ export const resolvers: Resolvers = {
                 where: { auth0Id: context.user.sub },
             });
             if (!user) throw new Error("User not found");
-            return user;
+            return {
+                ...user,
+                createdAt: user.createdAt.toISOString(),
+                updatedAt: user.updatedAt.toISOString(),
+            };
         },
         users: async (_parent, _args, context) => {
             if (!context.user?.sub) throw new Error("Unauthenticated");
-            return prisma.user.findMany();
+            const users = await prisma.user.findMany();
+            return users.map((user: any) => ({
+                ...user,
+                createdAt: user.createdAt.toISOString(),
+                updatedAt: user.updatedAt.toISOString(),
+            }));
         },
     },
     Mutation: {
         updateProfile: async (_parent, { input }, context) => {
             if (!context.user?.sub) throw new Error("Unauthenticated");
-            return prisma.user.update({
+            const user = await prisma.user.update({
                 where: { auth0Id: context.user.sub },
                 data: input,
             });
+            return {
+                ...user,
+                createdAt: user.createdAt.toISOString(),
+                updatedAt: user.updatedAt.toISOString(),
+            };
         },
     },
 };

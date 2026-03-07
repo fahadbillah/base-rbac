@@ -1,1 +1,0 @@
-{"version":3,"file":"codegen.js","sourceRoot":"","sources":["codegen.ts"],"names":[],"mappings":";;AAEA,MAAM,MAAM,GAAkB;IAC1B,MAAM,EAAE,sBAAsB;IAC9B,SAAS,EAAE;QACP,0BAA0B,EAAE;YACxB,OAAO,EAAE,CAAC,YAAY,CAAC;YACvB,MAAM,EAAE;gBACJ,aAAa,EAAE,IAAI;gBACnB,YAAY,EAAE,IAAI;aACrB;SACJ;KACJ;CACJ,CAAC;AAEF,kBAAe,MAAM,CAAC"}

@@ -7,6 +7,9 @@ dist/
 build/
 .next/
 out/
+*.js.map
+*.d.ts.map
+*.tsbuildinfo
 
 # Turbo
 .turbo/

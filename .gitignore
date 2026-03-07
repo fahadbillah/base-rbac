@@ -22,7 +22,7 @@ mcp_servers.json
 
 # Private crypto & agents
 *.pem
-.agent/beads/*.json
+.agent/beads/
 
 # Logs
 *.log

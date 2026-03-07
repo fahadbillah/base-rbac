@@ -4,36 +4,57 @@ import assert from "assert";
 
 import type { CustomWorld } from "../../../packages/test-utils/src/world";
 
-Given("I am authenticated as a member", async function (this: CustomWorld) {
-    // TODO: exchange a test user token via Auth0 Management API or use a mock
+import { PrismaClient } from "@prisma/client";
+
+Given("I am authenticated as a member", async function (this: CustomWorld & { isAuthenticated?: boolean }) {
+    this.isAuthenticated = true;
     this.lastResponse = undefined;
+    const prisma = new PrismaClient();
+    await prisma.user.upsert({
+        where: { auth0Id: "test-user-id" },
+        update: {},
+        create: {
+            auth0Id: "test-user-id",
+            email: "test@example.com",
+            name: "Test User",
+            role: "MEMBER",
+        }
+    });
 });
 
-Given("I am not authenticated", function (this: CustomWorld) {
+Given("I am not authenticated", function (this: CustomWorld & { isAuthenticated?: boolean }) {
+    this.isAuthenticated = false;
     this.lastResponse = undefined;
 });
 
 When(
     "I send a GraphQL query {string}",
-    async function (this: CustomWorld, query: string) {
-        const res = await request(this.apiUrl)
-            .post("")
-            .set("Content-Type", "application/json")
-            // Token set in Before hook for authenticated scenarios
-            .send({ query: `{ ${query} }` });
+    async function (this: CustomWorld & { isAuthenticated?: boolean }, query: string) {
+        const req = request(this.apiUrl)
+            .post("/graphql")
+            .set("Content-Type", "application/json");
 
+        if (this.isAuthenticated) {
+            req.set("Authorization", "Bearer test-user-id");
+        }
+
+        const res = await req.send({ query: `{ ${query} }` });
         this.lastResponse = { status: res.status, body: res.body };
     }
 );
 
 When(
     "I send a GraphQL mutation {string}",
-    async function (this: CustomWorld, mutation: string) {
-        const res = await request(this.apiUrl)
-            .post("")
-            .set("Content-Type", "application/json")
-            .send({ query: `mutation { ${mutation} }` });
+    async function (this: CustomWorld & { isAuthenticated?: boolean }, mutation: string) {
+        const req = request(this.apiUrl)
+            .post("/graphql")
+            .set("Content-Type", "application/json");
 
+        if (this.isAuthenticated) {
+            req.set("Authorization", "Bearer test-user-id");
+        }
+
+        const res = await req.send({ query: `mutation { ${mutation} }` });
         this.lastResponse = { status: res.status, body: res.body };
     }
 );

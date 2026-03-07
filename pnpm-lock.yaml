@@ -203,6 +203,9 @@ importers:
       '@ai-sdlc/test-utils':
         specifier: workspace:*
         version: link:../packages/test-utils
+      '@prisma/client':
+        specifier: ^6.4.1
+        version: 6.19.2(prisma@6.19.2(typescript@5.9.3))(typescript@5.9.3)
     devDependencies:
       '@ai-sdlc/config':
         specifier: workspace:*

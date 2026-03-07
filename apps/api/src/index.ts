@@ -30,8 +30,13 @@ async function bootstrap() {
         })
         : (req: any, res: any, next: any) => {
             // Mock auth context for CI when Auth0 secrets are absent
-            req.auth = { sub: "test-user-id" };
-            next();
+            const authHeader = req.headers.authorization;
+            if (authHeader && authHeader.startsWith("Bearer ")) {
+                req.auth = { sub: authHeader.split(" ")[1] };
+                next();
+            } else {
+                res.status(401).json({ error: "Unauthorized" });
+            }
         };
 
     // Apollo GraphQL server

@@ -8,7 +8,8 @@
         "test:e2e:member": "cucumber-js --profile e2e:member --config cucumber.config.js"
     },
     "dependencies": {
-        "@ai-sdlc/test-utils": "workspace:*"
+        "@ai-sdlc/test-utils": "workspace:*",
+        "@prisma/client": "^6.4.1"
     },
     "devDependencies": {
         "@ai-sdlc/config": "workspace:*",

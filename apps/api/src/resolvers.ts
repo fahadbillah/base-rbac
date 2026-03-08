@@ -1,8 +1,9 @@
 import type { Resolvers } from "@ai-sdlc/graphql-schema";
-import { DIContainer } from "./infrastructure/di-container.js";
+
 import { GetUser } from "./application/use-cases/GetUser.js";
 import { ListUsers } from "./application/use-cases/ListUsers.js";
 import { UpdateUser } from "./application/use-cases/UpdateUser.js";
+import { DIContainer } from "./infrastructure/di-container.js";
 
 const userRepository = DIContainer.getUserRepository();
 

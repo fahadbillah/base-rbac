@@ -1,9 +1,12 @@
 import * as admin from "firebase-admin";
+import { getFirestore, FieldValue } from "firebase-admin/firestore";
+
 import { IUser, UserRole } from "../../../domain/IUser.js";
 import { IUserRepository } from "../../../domain/repositories/IUserRepository.js";
 
 export class FirebaseUserRepository implements IUserRepository {
-  private collection = admin.firestore().collection("users");
+  private db = getFirestore();
+  private collection = this.db.collection("users");
 
   private mapToEntity(doc: admin.firestore.DocumentSnapshot): IUser {
     const data = doc.data()!;
@@ -42,8 +45,8 @@ export class FirebaseUserRepository implements IUserRepository {
     const docRef = await this.collection.add({
       ...data,
       role: data.role || UserRole.MEMBER,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdAt: FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
     });
     const doc = await docRef.get();
     return this.mapToEntity(doc);
@@ -52,7 +55,7 @@ export class FirebaseUserRepository implements IUserRepository {
   async update(id: string, data: Partial<IUser>): Promise<IUser> {
     await this.collection.doc(id).update({
       ...data,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
     });
     const doc = await this.collection.doc(id).get();
     return this.mapToEntity(doc);

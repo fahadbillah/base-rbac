@@ -1,6 +1,6 @@
-import { IUserRepository } from "../domain/repositories/IUserRepository.js";
 import { PrismaUserRepository } from "./database/PrismaUserRepository.js";
 import { FirebaseUserRepository } from "./database/firebase/FirebaseUserRepository.js";
+import { IUserRepository } from "../domain/repositories/IUserRepository.js";
 
 // Simple Factory for Dependency Injection
 export class DIContainer {

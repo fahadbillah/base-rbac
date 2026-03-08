@@ -1,7 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import cors from "cors";
-import express from "express";
+import express, { json } from "express";
 import { auth } from "express-oauth2-jwt-bearer";
 import helmet from "helmet";
 
@@ -16,7 +16,7 @@ export async function createApp(): Promise<express.Express> {
   // Security middlewares
   app.use(helmet({ contentSecurityPolicy: false }));
   app.use(cors({ origin: process.env.ALLOWED_ORIGINS?.split(",") }));
-  app.use(express.json());
+  app.use(json());
 
   // Health check
   app.get("/health", (_req, res) => res.json({ status: "ok" }));

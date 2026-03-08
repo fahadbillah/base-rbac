@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+
 import { IUser, UserRole } from "../../domain/IUser.js";
 import { IUserRepository } from "../../domain/repositories/IUserRepository.js";
 

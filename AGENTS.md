@@ -11,6 +11,7 @@ We are building a reusable authorization-first architecture for separate School 
 5. **Testing Hierarchy**: 
    - Backend: Cucumber (Acceptance) + Vitest (Unit).
    - Frontend: MUI + Storybook (Visual Acceptance).
+6. **Tooling**: Always use the GitHub MCP server rather than the `gh` CLI for any GitHub interactions.
 
 ## 🛠️ Technical Standards
 - **UI**: MUI Core (Free) only.

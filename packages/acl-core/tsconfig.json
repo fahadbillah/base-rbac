@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "esModuleInterop": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src"
+  ]
+}

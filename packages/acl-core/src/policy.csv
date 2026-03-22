@@ -1,0 +1,6 @@
+p, role:teacher, /grades/*, write
+p, role:student, /grades/my, read
+p, role:hr, /employees/payroll, write
+p, role:intern, /docs/public, read
+
+g, headteacher, teacher

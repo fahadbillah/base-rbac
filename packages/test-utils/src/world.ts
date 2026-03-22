@@ -1,5 +1,6 @@
 import { World, IWorldOptions, setWorldConstructor } from "@cucumber/cucumber";
 import { Browser, BrowserContext, Page } from "@playwright/test";
+import { PrismaClient } from "@prisma/client";
 
 export interface WorldParameters {
     adminPortalUrl: string;
@@ -16,6 +17,9 @@ export interface AppWorld extends World {
         status: number;
         body: unknown;
     };
+    isAuthenticated?: boolean;
+    mockRole?: string;
+    prisma: PrismaClient;
 }
 
 export class CustomWorld extends World implements AppWorld {
@@ -24,10 +28,20 @@ export class CustomWorld extends World implements AppWorld {
     page!: Page;
     declare worldParameters: WorldParameters;
     lastResponse?: { status: number; body: unknown };
+    isAuthenticated?: boolean;
+    mockRole?: string;
+    private _prisma?: PrismaClient;
 
     constructor(options: IWorldOptions) {
         super(options);
         this.worldParameters = options.parameters as WorldParameters;
+    }
+
+    get prisma(): PrismaClient {
+        if (!this._prisma) {
+            this._prisma = new PrismaClient();
+        }
+        return this._prisma;
     }
 
     get apiUrl(): string {

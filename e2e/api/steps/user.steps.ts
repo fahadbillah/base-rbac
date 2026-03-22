@@ -6,11 +6,11 @@ import type { CustomWorld } from "../../../packages/test-utils/src/world";
 
 import { PrismaClient } from "@prisma/client";
 
-Given("I am authenticated as a member", async function (this: CustomWorld & { isAuthenticated?: boolean }) {
+Given("I am authenticated as a member", async function (this: CustomWorld) {
     this.isAuthenticated = true;
+    this.mockRole = "member";
     this.lastResponse = undefined;
-    const prisma = new PrismaClient();
-    await prisma.user.upsert({
+    await this.prisma.user.upsert({
         where: { auth0Id: "test-user-id" },
         update: {},
         create: {
@@ -22,20 +22,29 @@ Given("I am authenticated as a member", async function (this: CustomWorld & { is
     });
 });
 
-Given("I am not authenticated", function (this: CustomWorld & { isAuthenticated?: boolean }) {
+Given("I am authenticated with role {string}", function (this: CustomWorld, role: string) {
+    this.isAuthenticated = true;
+    this.mockRole = role;
+    this.lastResponse = undefined;
+});
+
+Given("I am not authenticated", function (this: CustomWorld) {
     this.isAuthenticated = false;
     this.lastResponse = undefined;
 });
 
 When(
     "I send a GraphQL query {string}",
-    async function (this: CustomWorld & { isAuthenticated?: boolean }, query: string) {
+    async function (this: CustomWorld, query: string) {
         const req = request(this.apiUrl)
             .post("/graphql")
             .set("Content-Type", "application/json");
 
         if (this.isAuthenticated) {
             req.set("Authorization", "Bearer test-user-id");
+            if (this.mockRole) {
+                req.set("x-mock-role", this.mockRole);
+            }
         }
 
         const res = await req.send({ query: `{ ${query} }` });
@@ -45,13 +54,16 @@ When(
 
 When(
     "I send a GraphQL mutation {string}",
-    async function (this: CustomWorld & { isAuthenticated?: boolean }, mutation: string) {
+    async function (this: CustomWorld, mutation: string) {
         const req = request(this.apiUrl)
             .post("/graphql")
             .set("Content-Type", "application/json");
 
         if (this.isAuthenticated) {
             req.set("Authorization", "Bearer test-user-id");
+            if (this.mockRole) {
+                req.set("x-mock-role", this.mockRole);
+            }
         }
 
         const res = await req.send({ query: `mutation { ${mutation} }` });
@@ -83,5 +95,17 @@ Then(
     function (this: CustomWorld, name: string) {
         const body = this.lastResponse?.body as { data?: { updateProfile?: { name: string } } };
         assert.equal(body?.data?.updateProfile?.name, name);
+    }
+);
+
+Then(
+    "the response should contain a GraphQL error {string}",
+    function (this: CustomWorld, errorMessage: string) {
+        const errors = (this.lastResponse?.body as any)?.errors;
+        assert.ok(errors, "Expected GraphQL errors in response");
+        assert.ok(
+            errors.some((e: any) => e.message.includes(errorMessage)),
+            `Expected error message containing "${errorMessage}" but got: ${JSON.stringify(errors)}`
+        );
     }
 );

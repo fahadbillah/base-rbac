@@ -1,0 +1,24 @@
+{
+    "name": "@ai-sdlc/acl-core",
+    "version": "0.0.1",
+    "private": true,
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc && cp src/model.conf src/policy.csv dist/",
+        "dev": "tsc --watch",
+        "lint": "eslint src/",
+        "typecheck": "tsc --noEmit",
+        "test": "vitest run"
+    },
+    "dependencies": {
+        "casbin": "^5.33.0"
+    },
+    "devDependencies": {
+        "@ai-sdlc/config": "workspace:*",
+        "eslint": "^10.0.3",
+        "typescript": "^5.7.3",
+        "vitest": "^3.0.0"
+    }
+}

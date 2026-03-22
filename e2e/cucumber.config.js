@@ -1,3 +1,5 @@
+const path = require("path");
+
 const common = {
     requireModule: ["tsx"],
     format: [
@@ -19,12 +21,12 @@ const config = {
     // ─── API Profile ──────────────────────────────────────────────
     api: {
         ...common,
-        paths: ["../specs/api/**/*.feature"],
+        paths: [path.join(__dirname, "../specs/api/**/*.feature")],
         require: [
-            "../packages/test-utils/src/world.ts",
-            "../packages/test-utils/src/hooks.ts",
-            "api/steps/**/*.ts",
-            "api/support/**/*.ts",
+            path.join(__dirname, "../packages/test-utils/src/world.ts"),
+            path.join(__dirname, "../packages/test-utils/src/hooks.ts"),
+            path.join(__dirname, "api/steps/**/*.ts"),
+            path.join(__dirname, "api/support/**/*.ts"),
         ],
         tags: "@api",
     },
@@ -32,12 +34,12 @@ const config = {
     // ─── Admin E2E Profile ────────────────────────────────────────
     "e2e:admin": {
         ...common,
-        paths: ["../specs/admin/**/*.feature"],
+        paths: [path.join(__dirname, "../specs/admin/**/*.feature")],
         require: [
-            "../packages/test-utils/src/world.ts",
-            "../packages/test-utils/src/hooks.ts",
-            "admin/steps/**/*.ts",
-            "admin/support/**/*.ts",
+            path.join(__dirname, "../packages/test-utils/src/world.ts"),
+            path.join(__dirname, "../packages/test-utils/src/hooks.ts"),
+            path.join(__dirname, "admin/steps/**/*.ts"),
+            path.join(__dirname, "admin/support/**/*.ts"),
         ],
         tags: "@e2e and @admin",
     },
@@ -45,12 +47,12 @@ const config = {
     // ─── Member E2E Profile ───────────────────────────────────────
     "e2e:member": {
         ...common,
-        paths: ["../specs/member/**/*.feature"],
+        paths: [path.join(__dirname, "../specs/member/**/*.feature")],
         require: [
-            "../packages/test-utils/src/world.ts",
-            "../packages/test-utils/src/hooks.ts",
-            "member/steps/**/*.ts",
-            "member/support/**/*.ts",
+            path.join(__dirname, "../packages/test-utils/src/world.ts"),
+            path.join(__dirname, "../packages/test-utils/src/hooks.ts"),
+            path.join(__dirname, "member/steps/**/*.ts"),
+            path.join(__dirname, "member/support/**/*.ts"),
         ],
         tags: "@e2e and @member",
     },

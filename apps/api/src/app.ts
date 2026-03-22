@@ -6,10 +6,10 @@ import { auth } from "express-oauth2-jwt-bearer";
 import helmet from "helmet";
 
 import "@ai-sdlc/graphql-schema";
+import { EnforcerSingleton } from "@ai-sdlc/acl-core";
 import { schema } from "@ai-sdlc/graphql-schema/schema";
 
 import { resolvers } from "./resolvers.js";
-import { EnforcerSingleton } from "@ai-sdlc/acl-core";
 
 export async function createApp(): Promise<express.Express> {
   const app = express();

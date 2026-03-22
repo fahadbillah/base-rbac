@@ -1,6 +1,7 @@
-import { Enforcer, newEnforcer } from "casbin";
 import * as path from "path";
 import { fileURLToPath } from "url";
+
+import { Enforcer, newEnforcer } from "casbin";
 
 // Polyfill __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);

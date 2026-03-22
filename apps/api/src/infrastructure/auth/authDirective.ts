@@ -9,7 +9,7 @@ import { defaultFieldResolver, GraphQLSchema, GraphQLError } from "graphql";
  */
 export function authDirectiveTransformer(schema: GraphQLSchema, directiveName: string = "auth") {
   return mapSchema(schema, {
-    [MapperKind.OBJECT_FIELD]: (fieldConfig, fieldName) => {
+    [MapperKind.OBJECT_FIELD]: (fieldConfig, _fieldName) => {
       const directives = getDirective(schema, fieldConfig, directiveName);
       const authDirective = directives?.[0];
 

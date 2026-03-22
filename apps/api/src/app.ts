@@ -1,5 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import cors from "cors";
 import express, { json } from "express";
 import { auth } from "express-oauth2-jwt-bearer";
@@ -9,7 +10,6 @@ import { EnforcerSingleton } from "@ai-sdlc/acl-core";
 import "@ai-sdlc/graphql-schema";
 import { schema } from "@ai-sdlc/graphql-schema/schema";
 
-import { makeExecutableSchema } from "@graphql-tools/schema";
 import { authDirectiveTransformer } from "./infrastructure/auth/authDirective.js";
 import { resolvers } from "./resolvers.js";
 

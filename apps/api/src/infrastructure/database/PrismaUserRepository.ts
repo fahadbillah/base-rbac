@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User, UserRole as PrismaUserRole } from "@prisma/client";
 
 import { IUser, UserRole } from "../../domain/IUser.js";
 import { IUserRepository } from "../../domain/repositories/IUserRepository.js";
@@ -6,7 +6,7 @@ import { IUserRepository } from "../../domain/repositories/IUserRepository.js";
 const prisma = new PrismaClient();
 
 export class PrismaUserRepository implements IUserRepository {
-  private mapToEntity(user: any): IUser {
+  private mapToEntity(user: User): IUser {
     return {
       id: user.id.toString(),
       email: user.email,
@@ -25,7 +25,7 @@ export class PrismaUserRepository implements IUserRepository {
 
   async findAll(): Promise<IUser[]> {
     const users = await prisma.user.findMany();
-    return users.map(user => this.mapToEntity(user));
+    return users.map((user: User) => this.mapToEntity(user));
   }
 
   async findByAuth0Id(auth0Id: string): Promise<IUser | null> {
@@ -44,7 +44,7 @@ export class PrismaUserRepository implements IUserRepository {
         email: data.email!,
         auth0Id: data.auth0Id!,
         name: data.name,
-        role: (data.role as any) || "MEMBER",
+        role: (data.role as unknown as PrismaUserRole) || PrismaUserRole.MEMBER,
       },
     });
     return this.mapToEntity(user);
@@ -57,7 +57,7 @@ export class PrismaUserRepository implements IUserRepository {
         email: data.email,
         auth0Id: data.auth0Id,
         name: data.name,
-        role: (data.role as any) || undefined,
+        role: data.role ? (data.role as unknown as PrismaUserRole) : undefined,
       },
     });
     return this.mapToEntity(user);

@@ -1,5 +1,5 @@
-import { IUser } from "../IUser";
-import { IBaseRepository } from "./IBaseRepository";
+import { IUser } from "../IUser.js";
+import { IBaseRepository } from "./IBaseRepository.js";
 
 export interface IUserRepository extends IBaseRepository<IUser> {
   findByAuth0Id(auth0Id: string): Promise<IUser | null>;

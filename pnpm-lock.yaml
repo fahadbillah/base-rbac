@@ -111,6 +111,12 @@ importers:
       '@apollo/server':
         specifier: ^4.11.3
         version: 4.13.0(graphql@16.13.0)
+      '@graphql-tools/schema':
+        specifier: ^10.0.31
+        version: 10.0.31(graphql@16.13.0)
+      '@graphql-tools/utils':
+        specifier: ^11.0.0
+        version: 11.0.0(graphql@16.13.0)
       '@prisma/client':
         specifier: ^6.4.1
         version: 6.19.2(prisma@6.19.2(typescript@5.9.3))(typescript@5.9.3)
@@ -6307,7 +6313,7 @@ snapshots:
   '@graphql-tools/optimize@2.0.0(graphql@16.13.0)':
     dependencies:
       graphql: 16.13.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@graphql-tools/prisma-loader@8.0.17(@types/node@22.19.13)(graphql@16.13.0)':
     dependencies:
@@ -6342,7 +6348,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.3(graphql@16.13.0)
       '@graphql-tools/utils': 11.0.0(graphql@16.13.0)
       graphql: 16.13.0
-      tslib: 2.6.3
+      tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
 
@@ -8532,7 +8538,7 @@ snapshots:
   graphql-tag@2.12.6(graphql@16.13.0):
     dependencies:
       graphql: 16.13.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   graphql-ws@6.0.7(graphql@16.13.0)(ws@8.19.0):
     dependencies:

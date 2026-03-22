@@ -7,9 +7,9 @@ const common = {
     ],
     formatOptions: { snippetInterface: "async-await" },
     worldParameters: {
-        adminPortalUrl: process.env.ADMIN_URL ?? "http://localhost:3000",
-        memberPortalUrl: process.env.MEMBER_URL ?? "http://localhost:3001",
-        apiUrl: process.env.API_URL ?? "http://localhost:4000",
+        adminPortalUrl: process.env.ADMIN_URL ?? "http://127.0.0.1:3000",
+        memberPortalUrl: process.env.MEMBER_URL ?? "http://127.0.0.1:3001",
+        apiUrl: process.env.API_URL ?? "http://127.0.0.1:4000",
     },
 };
 
@@ -19,12 +19,12 @@ const config = {
     // ─── API Profile ──────────────────────────────────────────────
     api: {
         ...common,
-        paths: ["specs/api/**/*.feature"],
+        paths: ["../specs/api/**/*.feature"],
         require: [
-            "packages/test-utils/src/world.ts",
-            "packages/test-utils/src/hooks.ts",
-            "e2e/api/steps/**/*.ts",
-            "e2e/api/support/**/*.ts",
+            "../packages/test-utils/src/world.ts",
+            "../packages/test-utils/src/hooks.ts",
+            "api/steps/**/*.ts",
+            "api/support/**/*.ts",
         ],
         tags: "@api",
     },
@@ -32,12 +32,12 @@ const config = {
     // ─── Admin E2E Profile ────────────────────────────────────────
     "e2e:admin": {
         ...common,
-        paths: ["specs/admin/**/*.feature"],
+        paths: ["../specs/admin/**/*.feature"],
         require: [
-            "packages/test-utils/src/world.ts",
-            "packages/test-utils/src/hooks.ts",
-            "e2e/admin/steps/**/*.ts",
-            "e2e/admin/support/**/*.ts",
+            "../packages/test-utils/src/world.ts",
+            "../packages/test-utils/src/hooks.ts",
+            "admin/steps/**/*.ts",
+            "admin/support/**/*.ts",
         ],
         tags: "@e2e and @admin",
     },
@@ -45,12 +45,12 @@ const config = {
     // ─── Member E2E Profile ───────────────────────────────────────
     "e2e:member": {
         ...common,
-        paths: ["specs/member/**/*.feature"],
+        paths: ["../specs/member/**/*.feature"],
         require: [
-            "packages/test-utils/src/world.ts",
-            "packages/test-utils/src/hooks.ts",
-            "e2e/member/steps/**/*.ts",
-            "e2e/member/support/**/*.ts",
+            "../packages/test-utils/src/world.ts",
+            "../packages/test-utils/src/hooks.ts",
+            "member/steps/**/*.ts",
+            "member/support/**/*.ts",
         ],
         tags: "@e2e and @member",
     },

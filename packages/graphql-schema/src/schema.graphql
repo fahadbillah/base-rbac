@@ -1,9 +1,11 @@
-# GraphQL Schema for AI-SDLC
-# This is the shared SDL used by the API and consumed by frontend codegen
+directive @auth(
+  action: String!
+  object: String!
+) on FIELD_DEFINITION | OBJECT
 
 type Query {
   me: User
-  users: [User!]!
+  users: [User!]! @auth(action: "read", object: "/users/*")
 }
 
 type Mutation {

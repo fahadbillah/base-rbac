@@ -9,6 +9,8 @@ import { EnforcerSingleton } from "@ai-sdlc/acl-core";
 import "@ai-sdlc/graphql-schema";
 import { schema } from "@ai-sdlc/graphql-schema/schema";
 
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { authDirectiveTransformer } from "./infrastructure/auth/authDirective.js";
 import { resolvers } from "./resolvers.js";
 
 export async function createApp(): Promise<express.Express> {
@@ -31,15 +33,26 @@ export async function createApp(): Promise<express.Express> {
       // Mock auth context for CI when Auth0 secrets are absent
       const authHeader = req.headers.authorization;
       if (authHeader && authHeader.startsWith("Bearer ")) {
-        req.auth = { sub: authHeader.split(" ")[1], "https://app.com/claims/role": ["teacher"] }; // Mock SAML role
+        const sub = authHeader.split(" ")[1];
+        const role = req.headers["x-mock-role"] || "teacher";
+        req.auth = { sub, "https://app.com/claims/role": [role] }; // Mock SAML role
         next();
       } else {
         res.status(401).json({ error: "Unauthorized" });
       }
     };
 
+  // Build executable schema with resolvers
+  let executableSchema = makeExecutableSchema({
+    typeDefs: schema,
+    resolvers,
+  });
+
+  // Apply authorization transformer
+  executableSchema = authDirectiveTransformer(executableSchema, "auth");
+
   // Apollo GraphQL server
-  const server = new ApolloServer({ typeDefs: schema, resolvers });
+  const server = new ApolloServer({ schema: executableSchema });
   await server.start();
   
   // Initialize Casbin RBAC Singleton before request cycle

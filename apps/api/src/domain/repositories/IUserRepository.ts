@@ -1,3 +1,4 @@
+// NOTE: Explicit .js extensions are required for ESM compatibility with NodeNext module resolution.
 import { IUser } from "../IUser.js";
 import { IBaseRepository } from "./IBaseRepository.js";
 

@@ -1,3 +1,6 @@
+# GraphQL Schema for AI-SDLC
+# This is the shared SDL used by the API and consumed by frontend codegen
+
 directive @auth(
   action: String!
   object: String!

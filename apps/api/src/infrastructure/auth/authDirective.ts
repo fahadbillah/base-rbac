@@ -36,6 +36,7 @@ export function authDirectiveTransformer(schema: GraphQLSchema, directiveName: s
           }
 
           if (!authorized) {
+            console.debug(`[auth] Denied: subjects=${casbinSubjects.join(",")} action=${action} object=${object}`);
             throw new GraphQLError(`Forbidden: No permission to ${action} ${object}`, {
               extensions: { 
                 code: "FORBIDDEN",

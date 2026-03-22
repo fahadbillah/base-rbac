@@ -34,7 +34,7 @@ export async function createApp(): Promise<express.Express> {
       const authHeader = req.headers.authorization;
       if (authHeader && authHeader.startsWith("Bearer ")) {
         const sub = authHeader.split(" ")[1];
-        const role = req.headers["x-mock-role"] || "teacher";
+        const role = req.headers["x-mock-role"] || "member";
         req.auth = { sub, "https://app.com/claims/role": [role] }; // Mock SAML role
         next();
       } else {

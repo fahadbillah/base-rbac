@@ -6,7 +6,6 @@ import { auth } from "express-oauth2-jwt-bearer";
 import helmet from "helmet";
 
 import { EnforcerSingleton } from "@ai-sdlc/acl-core";
-
 import "@ai-sdlc/graphql-schema";
 import { schema } from "@ai-sdlc/graphql-schema/schema";
 

@@ -234,3 +234,11 @@ For a `pnpm spec:generate` CLI or a GitHub Actions step:
 4. **Bootstrap the portals** — Vite + React + React Router + Auth0 SDK, link to `packages/ui`
 5. **Configure Cucumber** — profiles for `api`, `e2e:admin`, `e2e:member`; write first feature file
 6. **Set up GitHub Actions** — spec-gate pipeline (no merge without green Cucumber runs)
+
+---
+
+## 📖 Related Docs
+
+- [Spec Workflow](spec-workflow.md)
+- [Authorization & RBAC](authorization.md)
+

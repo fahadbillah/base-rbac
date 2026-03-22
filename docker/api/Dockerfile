@@ -15,7 +15,7 @@ COPY apps/api/ apps/api/
 WORKDIR /repo/apps/api
 RUN pnpm run build
 
-# ── Stage 3: production ───────────────────────────────────────
+# ── Stage 4: production ───────────────────────────────────────
 FROM node:24-alpine AS prod
 WORKDIR /app
 ENV NODE_ENV=production
@@ -23,4 +23,4 @@ COPY --from=builder /repo/apps/api/dist ./dist
 COPY --from=builder /repo/node_modules ./node_modules
 COPY --from=builder /repo/apps/api/prisma ./prisma
 EXPOSE 4000
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/server.js"]
